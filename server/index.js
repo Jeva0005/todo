@@ -40,7 +40,7 @@ app.post('/create', (req, res) =>{
         return res.status(400).json({error: 'Task is required'})
     };
 
-    pool.query('insert into task (description) values ($1) returning *' [task.description], (err, result) => {
+    pool.query('insert into task (description) values ($1) returning *', [task.description], (err, result) => {
         if (err) {
             return res.status(500).json({error: err.message})
         };
