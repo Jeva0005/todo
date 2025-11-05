@@ -1,3 +1,33 @@
-body {
-  background-color:dimgray;
+:root{
+  --bg:#0b0f13;
+  --panel:#0f1720;
+  --muted:#98a0aa;
+  --accent:#7c5cff;
+  --accent-2:#4dd0e1;
+  --glass: rgba(255,255,255,0.03);
+  --danger:#ff6b6b;
+  --radius:14px;
 }
+
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{
+  margin:0;
+  background:linear-gradient(180deg,var(--bg) 0%, #081019 100%);
+  color:#e6eef6;
+  font-family: "Segoe UI", "SegoeUI", "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px;
+  line-height:1.35;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select:none;
+  user-select:none;
+}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.05);border-radius:10px}
