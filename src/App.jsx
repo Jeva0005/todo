@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import axios from 'axios'
 import Row from './components/Row.jsx'
+import { useUser } from './context/useUser'
 
-const url = "http://localhost:3001"
+const url = import.meta.env.VITE_API_URL || "http://localhost:3001"
 
 function App() {
+  const { user } = useUser()
   const [task, setTask] = useState('')
   const [tasks, setTasks] = useState([])
 
@@ -15,30 +17,33 @@ function App() {
         setTasks(response.data)
       })
       .catch(error => {
-        alert(error.response.data ? error.response.data.message : error)
+        alert(error.response?.data ? error.response.data.message : error)
       })
   },[])
 
   const addTask = () => {
     const newTask = { description : task}
+    const headers = { headers: { Authorization: user?.token } }
 
-    axios.post(url + "/create", {task: newTask})
+    axios.post(url + "/create", {task: newTask}, headers)
     .then(response => {
       setTasks([...tasks,response.data])
       setTask('')
     })
     .catch(error => {
-      alert(error.response ? error.response.data.error.message : error)
+      alert(error.response?.data?.error || error.message || error)
     })
   }
 
   const deleteTask = (deleted) => {
-    axios.delete(url + "/delete/" + deleted)
+    const headers = { headers: { Authorization: user?.token } }
+
+    axios.delete(url + "/delete/" + deleted, headers)
       .then(response => {
         setTasks(tasks.filter(item => item.id !== deleted))
       })
       .catch(error => {
-        alert(error.response ? error.response.data.error.message : error)
+        alert(error.response?.data?.error || error.message || error)
       })
   }
 
